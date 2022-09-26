@@ -1,12 +1,14 @@
 import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class Main {
     public static void main(String[] args) {
-        File file0 = new File("/home/dmitry/Games/savegames/save0.dat");
-        File file1 = new File("/home/dmitry/Games/savegames/save1.dat");
-        File file2 = new File("/home/dmitry/Games/savegames/save2.dat");
+        List<File> fileList = Arrays.asList(new File("/home/dmitry/Games/savegames/save0.dat"),
+                new File("/home/dmitry/Games/savegames/save1.dat"),
+                new File("/home/dmitry/Games/savegames/save2.dat"));
         GameProgress[] newList =
                 {new GameProgress(100, 3, 32, 54),
                         new GameProgress(95, 15, 12, 365.1),
@@ -14,9 +16,9 @@ public class Main {
 
         saveGame(newList);
         zipFiles(newList);
-        deleteFile(file0);
-        deleteFile(file1);
-        deleteFile(file2);
+        for (File x : fileList) {
+            deleteFile(x);
+        }
     }
 
     public static void saveGame(GameProgress[] newList) {
@@ -49,11 +51,11 @@ public class Main {
 
 
     public static void deleteFile(File file) {
-            if (file.delete()) {
-                System.out.println("Файл " + file.getName()+ " удален");
-            } else {
-                System.out.println("Файл " + file.getName()+ " не может быть удален");
-            }
+        if (file.delete()) {
+            System.out.println("Файл " + file.getName() + " удален");
+        } else {
+            System.out.println("Файл " + file.getName() + " не может быть удален");
+        }
 
     }
 }
